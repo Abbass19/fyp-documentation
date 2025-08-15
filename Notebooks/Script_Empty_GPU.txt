@@ -1,0 +1,49 @@
+import torch
+import gc
+import os
+import subprocess
+
+# Step 1: Clear PyTorch Cache
+def clear_pytorch_cache():
+    print("Clearing PyTorch cache...")
+    torch.cuda.empty_cache()
+    gc.collect()
+
+# Step 2: Delete Large Variables
+def delete_large_variables():
+    print("Deleting large variables...")
+    global_vars = list(globals().keys())
+    for var in global_vars:
+        if isinstance(globals()[var], torch.Tensor):
+            del globals()[var]
+    gc.collect()
+    torch.cuda.empty_cache()
+
+# Step 3: Kill Processes Using GPU Memory
+def kill_gpu_processes():
+    print("Checking and killing GPU processes...")
+    try:
+        output = subprocess.check_output("nvidia-smi --query-compute-apps=pid --format=csv,noheader", shell=True)
+        pids = output.decode().split()
+        for pid in pids:
+            subprocess.call(["kill", "-9", pid])
+        print("Killed processes using GPU memory.")
+    except Exception as e:
+        print("No extra GPU processes found or an error occurred:", e)
+
+# Step 4: Set Environment Variable to Reduce Fragmentation
+def set_pytorch_env_var():
+    print("Setting PyTorch CUDA memory environment variable...")
+    os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
+
+# Run all solutions in order
+def free_gpu_memory():
+    print("Starting GPU memory cleanup...")
+    clear_pytorch_cache()
+    delete_large_variables()
+    kill_gpu_processes()
+    set_pytorch_env_var()
+    print("GPU memory cleanup complete. You may now restart training with a smaller batch size.")
+
+# Execute the function
+free_gpu_memory()
