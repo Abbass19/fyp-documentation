@@ -4,16 +4,16 @@
 
 ## 📸 Project Gallery
 <p align="center">
-  <img src="assests/data_composition.png" width="300"/>
-  <img src="assests/yolo_detection_example.png" width="300"/>
+  <img src="assests/data_composition.PNG" width="300"/>
+  <img src="assests/yolo_detection_example.jpg" width="300"/>
 </p>
 <p align="center">
   <img src="assests/model_comparison_unification.png" width="300"/>
-  <img src="assests/yolo_vs_obb.png" width="300"/>
+  <img src="assests/yolo_vs_obb.PNG" width="300"/>
 </p>
 <p align="center">
-  <img src="assests/cross_dataset_benchmark.png" width="300"/>
-  <img src="assests/eigen_cam_heatmap.png" width="300"/>
+  <img src="assests/cross_dataset_benchmark.PNG" width="300"/>
+  <img src="assests/eigen_cam_heatmap.jpg" width="300"/>
 </p>
 
 ---
@@ -66,7 +66,7 @@ The unified dataset combines **four different aerial vehicle detection datasets*
 ![YOLOv8 vs YOLOv8-OBB](assests/yolo_vs_obb.png)  
 *Figure 3 – YOLOv8 vs YOLOv8-OBB on a sample image.*
 
-![Cross-Dataset Benchmark](assests/cross_dataset_benchmark.png)  
+![Cross-Dataset Benchmark](assests/cross_dataset_benchmark.PNG)  
 *Figure 4 – Benchmark results of models tested outside their own datasets.*
 
 ---
@@ -74,7 +74,7 @@ The unified dataset combines **four different aerial vehicle detection datasets*
 ### Model Interpretability
 To understand decision-making, **Eigen-CAM heatmaps** were generated for detection outputs.
 
-![Eigen-CAM Heatmap](assests/eigen_cam_heatmap.png)  
+![Eigen-CAM Heatmap](assests/eigen_cam_heatmap.jpg)  
 *Figure 5 – Eigen-CAM heatmap visualization.*
 
 ---
