@@ -1,116 +1,110 @@
-YOLOv8 Model Training for Multi-Environment Vehicle Detection
-Overview
+# YOLOv8 Model Training for Multi-Environment Vehicle Detection
 
-This project focuses on training YOLOv8 object detection models across four distinct datasets, followed by the creation of a custom unified dataset to maximize model diversity and ensure robustness in various environments.
+---
 
-The goal is to develop a generalized detection model capable of high performance across multiple real-world conditions.
+## 📸 Project Gallery
+<p align="center">
+  <img src="images/data_composition.png" width="300"/>
+  <img src="images/yolo_detection_example.png" width="300"/>
+</p>
+<p align="center">
+  <img src="images/model_comparison_unification.png" width="300"/>
+  <img src="images/yolo_vs_obb.png" width="300"/>
+</p>
+<p align="center">
+  <img src="images/cross_dataset_benchmark.png" width="300"/>
+  <img src="images/eigen_cam_heatmap.png" width="300"/>
+</p>
 
-Methodology
-1. Dataset Collection
+---
 
-4 separate datasets collected from diverse sources.
+## 📝 Overview
+This project trains **YOLOv8 object detection models** on **four distinct datasets** and a **custom unified dataset** to maximize model diversity and ensure robustness across different environments.  
 
-Each dataset originally contained different label structures and object counts.
+The goal is to build a **generalized detection model** capable of high performance in multiple real-world conditions.
 
-2. Dataset Unification
+---
 
-To ensure compatibility and simplify the training process:
+## 📂 Dataset Composition
+The unified dataset combines **four different aerial vehicle detection datasets**, ensuring variety in environments, object sizes, and perspectives.
 
-Labels were reduced from 10 to 4 classes in some datasets.
+![Dataset Composition](images/data_composition.png)  
+*Figure 0 – Data composition from 4 sources.*
 
-Labels were reduced from 8 to 4 in others.
+---
 
-This process is referred to as "Unification".
+## ⚙️ Methodology
 
-Both original-label models and unified-label models were trained for performance comparison.
+### Dataset Unification
+- Labels reduced to **4 consistent classes** across datasets.  
+- Some datasets reduced from 10 → 4 classes.  
+- Others reduced from 8 → 4 classes.  
+- Both **original-label** and **unified-label** models were trained for comparison.
 
-3. Model Training
+![Model Comparison](images/model_comparison_unification.png)  
+*Figure 2 – Model comparison before and after unification.*
 
-YOLOv8 was used for all training runs.
+---
 
-Training code saved for:
+### Model Training
+- **YOLOv8** used for all experiments.  
+- Training performed on:
+  - 4 individual datasets  
+  - Unified dataset  
+  - Final custom dataset (for maximum diversity)  
+- Extensive benchmarking for robustness evaluation.
 
-Each of the 4 individual datasets.
+![YOLOv8 Object Detection](images/yolo_detection_example.png)  
+*Figure 1 – Model applied to a single image (YOLOv8 object detection).*
 
-The unified dataset.
+---
 
-The custom final dataset (built for maximum diversity).
+### Special Experiments
+- **YOLOv8 vs YOLOv8-OBB** tested on a sample dataset.  
+- Cross-dataset benchmarking to measure generalization.
 
-A benchmarking process was implemented to compare scores from multiple models.
+![YOLOv8 vs YOLOv8-OBB](images/yolo_vs_obb.png)  
+*Figure 3 – YOLOv8 vs YOLOv8-OBB on a sample image.*
 
-4. Utilities
+![Cross-Dataset Benchmark](images/cross_dataset_benchmark.png)  
+*Figure 4 – Benchmark results of models tested outside their own datasets.*
 
-Custom code to clear GPU memory in case of runtime errors.
+---
 
-Repository Structure
-.
-├── notebooks/                # Jupyter notebooks for training and benchmarking
-│   ├── train_dataset1.ipynb
-│   ├── train_dataset2.ipynb
-│   ├── train_dataset3.ipynb
-│   ├── train_dataset4.ipynb
-│   ├── train_unified.ipynb
-│   ├── train_custom_final.ipynb
-│   └── benchmark_models.ipynb
-├── utils/
-│   └── clear_gpu.py
-├── datasets/                 # Dataset preparation scripts or samples
-├── README.md
-└── .gitignore
+### Model Interpretability
+To understand decision-making, **Eigen-CAM heatmaps** were generated for detection outputs.
 
-Results
+![Eigen-CAM Heatmap](images/eigen_cam_heatmap.png)  
+*Figure 5 – Eigen-CAM heatmap visualization.*
 
-Detailed metrics are available in the notebook outputs.
+---
 
-Precision, recall, and mAP compared between:
+## 🛠 Utilities
+- **GPU memory clearing script** to avoid CUDA memory errors during training.
 
-Original-label models
+---
 
-Unified-label models
+## 📊 Results Summary
+- Precision, Recall, and mAP compared between:
+  - Original-label models
+  - Unified-label models
+  - Final custom dataset model  
+- Detailed metrics available in training notebooks.
 
-Custom final dataset model
+---
 
-Full Report Submitted to MU :
+## 📁 Repository Structure
 
-[Full Report On Google Drive](https://docs.google.com/document/d/1wQlhH0jVUkl-7ocXJRutJdapFWHnq_fL/edit?usp=sharing&ouid=108265425555663361559&rtpof=true&sd=true)
+| Path         | Description |
+|--------------|-------------|
+| `notebooks/` | Jupyter notebooks for training & benchmarking |
+| `utils/`     | GPU clearing and helper scripts |
+| `datasets/`  | Dataset preparation scripts or samples |
+| `images/`    | Figures and visual results |
+| `README.md`  | Project documentation |
+| `.gitignore` | Ignored files configuration |
 
+---
 
-
-
-
-## Custom Unified Dataset
-
-This dataset is created to build a YOLOv8 model capable of detecting objects from **different heights and perspectives**.  
-It focuses on **cars, trucks, buses, and people**, combining images from multiple sources.
-
-### Sources & Image Count
-| Dataset | Starting ID | Number of Images |
-|---------|------------|----------------|
-| VisDrone | 0 | 8,625 |
-| Traffic Aerial Images for Vehicle Detection | 10,000 | 6,120 |
-| Aerial Images Dataset | 20,000 | 2,708 |
-| UAVDT_2024 | 30,000 | 12,548 |
-
-**Total images:** ~29,641 (≈30K)  
-
-### Dataset Split
-| Split | Images | Percentage |
-|-------|--------|------------|
-| Train | 22,053 | 73.56% |
-| Validation | 4,148 | 13.84% |
-| Test | 3,780 | 12.61% |
-
-### Object Instances
-| Class | Instances |
-|-------|----------|
-| Car | 1,001,858 |
-| Bus | 92,514 |
-| Truck | 7,908 |
-| **Total** | 1,102,280 |
-
-- **Average Objects per Image:** 36.7  
-- **Average Object Size (% of image area):** 0.211  
-- **Small Objects (<5% area):** 11.18%  
-- **Object Overlap (Mean IoU):** 99.89%  
-
-**Annotation Format:** YOLOv8 (`class_id center_x center_y width height`)
+## 📄 Full Report
+Full documentation and experiments submitted to **MU** 🙂
